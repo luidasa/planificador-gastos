@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ChangeEvent, type SubmitEvent } from "react";
 import { useBudget } from "../hooks/useBudget";
 
 
@@ -8,12 +8,12 @@ const BudgetForm = () => {
 
     const { dispatch } = useBudget();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setBudget(e.target.valueAsNumber);
         //console.log(budget);
     }
 
-    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         // Aquí puedes agregar la lógica para guardar el presupuesto
         console.log("Presupuesto guardado:", budget);
@@ -29,7 +29,7 @@ const BudgetForm = () => {
     <form className="space-y-5" onSubmit={handleSubmit}>
       <div className="flex flex-col space-y-5">
         <label htmlFor="budget" className="text-4xl text-blue-600 font-bold text-center">
-          Definir presupuesto 
+          Definir presupuesto mensual
         </label>
         <input
           type="number"
