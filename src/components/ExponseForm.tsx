@@ -1,6 +1,7 @@
 import { categories } from "../models/data/categories";
 import { useState } from "react";
 import type { DraftExpense } from "../models/Expense";
+import ErrorMessage from "./ErrorMessage";
 
 export default function ExpenseForm() {
 
@@ -13,17 +14,28 @@ export default function ExpenseForm() {
         name: ""
     });
 
+    const [error, setError] = useState('');
+
     const handleSubmit = (e: React.SubmitEvent) => {
         e.preventDefault();
-        console.log(expense)
+
+        if (Object.values(expense).includes('') || expense.amount <= 0) {
+            setError('Por favor, complete todos los campos del formulario');
+            return;
+        } else {             
+            alert('Gasto añadido correctamente');
+        }
     }
 
     return (
+        <>
+        
         <form className="space-y-5" onSubmit={handleSubmit}>
             <legend 
                 className="uppercase text-center text-2xl font-black border-b-4 border-blue-500 py-2">
                 Nuevo gastos
             </legend>
+            {error && <ErrorMessage>{error}</ErrorMessage>}
             <div className="flex flex-col gap-2">
                 <label htmlFor="expenseName" className="text-xl">
                     Nombre gasto: 
@@ -90,5 +102,6 @@ export default function ExpenseForm() {
                 Añadir gasto
             </button>
         </form>
+        </>
     )
 }
